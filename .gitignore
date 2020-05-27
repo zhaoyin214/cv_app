@@ -5,3 +5,4 @@ video/
 output/
 data/
 config/
+__pycache__/
