@@ -1,0 +1,1 @@
+from .det_net import DetectNetCV
