@@ -12,10 +12,11 @@
 
 __author__ = "XiaoY"
 
-from meta import IBox, IBoundingBox, Box, IKeyPoints
+from interface.meta import IBox, IPointIterator
+from meta.bbox import Box
 from copy import deepcopy
 
-def box_padding(bbox: IBoundingBox, border: IBox, padding: float) -> IBox:
+def box_padding(bbox: IBox, border: IBox, padding: float) -> IBox:
 
     roi = Box(bbox.xmin, bbox.ymin, bbox.xmax, bbox.ymax)
 
@@ -29,7 +30,7 @@ def box_padding(bbox: IBoundingBox, border: IBox, padding: float) -> IBox:
 
     return roi
 
-def convert_kpts_2_global(kpts: IKeyPoints, roi: IBox) -> IKeyPoints:
+def convert_kpts_2_global(kpts: IPointIterator, roi: IBox) -> IPointIterator:
 
     kpts = deepcopy(kpts)
     for pt in kpts:

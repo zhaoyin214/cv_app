@@ -14,11 +14,9 @@ __author__ = "XiaoY"
 
 
 from model.opencv import DetectNetCV
-from utils.visualizer import show_bboxes
-from configs.data_path import IMG_DIR
+from utils.display.visualizer import show_bboxes
 from configs.bbox import FACE_DET_INTEL_RETAIL_0005_FP32
 import cv2
-import os
 
 
 if __name__ == "__main__":

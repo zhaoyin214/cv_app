@@ -13,10 +13,10 @@
 __author__ = "XiaoY"
 
 from interface.model import IBaseModel
+from interface.meta import Image, Blob
 import cv2
-import numpy as np
 from abc import ABCMeta, abstractmethod
-from typing import Dict
+from typing import Any, Dict
 
 class BaseNetCV(IBaseModel):
     """
@@ -51,12 +51,12 @@ class BaseNetCV(IBaseModel):
         self._scale_factor = config.get("scale_factor", 1)
         self._is_gray = config.get("gray", False)
 
-    def _predict(self, blob: np.array):
+    def _predict(self, blob: Blob) -> Any:
         self._net.setInput(blob)
         output = self._net.forward()
         return output
 
-    def _input_blob(self, image: np.array) -> np.array:
+    def _input_blob(self, image: Image) -> Blob:
         if self._is_gray:
             image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -88,9 +88,21 @@ class BaseNetCV(IBaseModel):
 
         return blob
 
-    def __call__(self, image: np.array) -> np.array:
+    def _pre_proc(self, image: Image) -> Image:
+        return image
+
+    def _post_proc(self, image: Image, pred: Blob) -> Any:
+        return pred
+
+    def _call(self, image: Image) -> Any:
+        image = self._pre_proc(image)
         blob = self._input_blob(image)
-        return self._predict(blob)
+        pred = self._predict(blob)
+        output = self._post_proc(image, pred)
+        return output
+
+    def __call__(self, image: Image) -> Any:
+        return self._call(image)
 
 class ClassNetCV(BaseNetCV):
     """

@@ -14,9 +14,9 @@ __author__ = "XiaoY"
 
 from interface.meta import IConfBoxIterator
 from interface.model import IBaseDetector
+from interface.meta import Image, Blob
 from meta import Aggregate, ConfBox
 from .base_net import ClassNetCV
-import numpy as np
 from typing import Dict
 
 class DetectNetCV(IBaseDetector, ClassNetCV):
@@ -29,7 +29,7 @@ class DetectNetCV(IBaseDetector, ClassNetCV):
         self._bbox = config.get("bbox")
 
     def _post_proc(
-        self, image: np.array, pred: np.array
+        self, image: Image, pred: Blob
     ) -> IConfBoxIterator:
 
         image_height, image_width = image.shape[0 : 2]
@@ -49,10 +49,5 @@ class DetectNetCV(IBaseDetector, ClassNetCV):
 
         return bboxes
 
-    def __call__(self, image: np.array) -> IConfBoxIterator:
-        blob = self._input_blob(image)
-        output = self._predict(blob)
-        bboxes = self._post_proc(image, output)
-
-        return bboxes
-
+    def __call__(self, image: Image) -> IConfBoxIterator:
+        return self._call(image)

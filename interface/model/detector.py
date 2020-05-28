@@ -13,14 +13,22 @@
 
 __author__ = "XiaoY"
 
-import numpy as np
-from .base import IBaseModel
 from interface.meta import IConfBoxIterator
+from interface.meta import Image
+from .base import IBaseModel
+import numpy as np
 from abc import abstractmethod
 
 
 class IBaseDetector(IBaseModel):
-
+    """
+    the interface of the base detector
+    """
     @abstractmethod
-    def __call__(self, image: np.array) -> IConfBoxIterator:
+    def __call__(self, image: Image) -> IConfBoxIterator:
+        """
+        return
+
+        bounding boxes, [conf_box, ...]
+        """
         pass

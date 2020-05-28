@@ -13,8 +13,8 @@
 __author__ = "XiaoY"
 
 
+from interface.meta import Image
 import cv2
-import numpy as np
 from typing import Text, Tuple
 
 class VideoReader(object):
@@ -40,7 +40,7 @@ class VideoReader(object):
     def fps(self):
         return self._fps
 
-    def read(self) -> np.array:
+    def read(self) -> Image:
 
         while True:
 
@@ -69,7 +69,7 @@ class VideoWriter(object):
             fps, size
         )
 
-    def write(self, image: np.array) -> None:
+    def write(self, image: Image) -> None:
         self._writer.write(image)
 
     def release(self) -> None:

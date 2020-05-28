@@ -13,8 +13,8 @@
 __author__ = "XiaoY"
 
 from interface.meta import IConfBoxIterator, IPointIterator
+from interface.meta import Image
 import cv2
-import numpy as np
 from typing import Dict, List, Text
 
 class Plotter(object):
@@ -43,7 +43,7 @@ class Plotter(object):
 
 class BBoxPlottor(Plotter):
 
-    def _plot(self, image: np.array, bboxes: IConfBoxIterator) -> np.array:
+    def _plot(self, image: Image, bboxes: IConfBoxIterator) -> Image:
 
         image = image.copy()
         for bbox in bboxes:
@@ -66,13 +66,13 @@ class BBoxPlottor(Plotter):
 
         return image
 
-    def __call__(self, image: np.array, bboxes: IConfBoxIterator) -> np.array:
+    def __call__(self, image: Image, bboxes: IConfBoxIterator) -> Image:
         return self._plot(image, bboxes)
 
 
 class KeyPointPlotter(Plotter):
 
-    def _plot(self, image: np.array, keypoints: IPointIterator) -> np.array:
+    def _plot(self, image: Image, keypoints: IPointIterator) -> Image:
 
         image = image.copy()
         for pt in keypoints:
@@ -98,11 +98,11 @@ class KeyPointPlotter(Plotter):
 
         return image
 
-    def __call__(self, image: np.array, keypoints: IPointIterator) -> np.array:
+    def __call__(self, image: Image, keypoints: IPointIterator) -> Image:
         return self._plot(image, keypoints)
 
 
-def _show(image: np.array, is_show: bool) -> None:
+def _show(image: Image, is_show: bool) -> None:
 
     if is_show:
         cv2.imshow("det", image)
@@ -110,30 +110,30 @@ def _show(image: np.array, is_show: bool) -> None:
             pass
         cv2.destroyAllWindows()
 
-def _save(image: np.array, output_path: Text) -> None:
+def _save(image: Image, output_path: Text) -> None:
 
     if output_path:
         cv2.imwrite(output_path, image)
 
 def _plot_bboxes(
-    image: np.array, bboxes: IConfBoxIterator
-) -> np.array:
+    image: Image, bboxes: IConfBoxIterator
+) -> Image:
 
     bbox_plottor = BBoxPlottor()
     return bbox_plottor(image, bboxes)
 
 def _plot_keypoints(
-    image: np.array, keypoints: IPointIterator
-) -> np.array:
+    image: Image, keypoints: IPointIterator
+) -> Image:
 
     pt_plottor = KeyPointPlotter()
     return pt_plottor(image, keypoints)
 
 def _plot_multi_obj_alignment(
-    image: np.array,
+    image: Image,
     bboxes: IConfBoxIterator,
     kpts_aggregate: List[IPointIterator]
-) -> np.array:
+) -> Image:
 
     bbox_plottor = BBoxPlottor()
     pt_plottor = KeyPointPlotter()
@@ -145,7 +145,7 @@ def _plot_multi_obj_alignment(
     return image
 
 def show_bboxes(
-    image: np.array, bboxes: IConfBoxIterator,
+    image: Image, bboxes: IConfBoxIterator,
     output_path: Text=None, is_show: bool=True
 ) -> None:
 
@@ -154,7 +154,7 @@ def show_bboxes(
     _save(image, output_path)
 
 def show_keypoints(
-    image: np.array, keypoints: IPointIterator,
+    image: Image, keypoints: IPointIterator,
     output_path: Text=None, is_show: bool=True
 ) -> None:
 
@@ -163,7 +163,7 @@ def show_keypoints(
     _save(image, output_path)
 
 def show_multi_obj_alignment(
-    image: np.array,
+    image: Image,
     bboxes: IConfBoxIterator,
     kpts_aggregate: List[IPointIterator],
     output_path: Text=None, is_show: bool=True

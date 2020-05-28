@@ -12,12 +12,12 @@
 
 __author__ = "XiaoY"
 
-import numpy as np
+from interface.meta import Image
 from abc import ABCMeta, abstractmethod
 from typing import Any
 
 class IBaseModel(metaclass=ABCMeta):
 
     @abstractmethod
-    def __call__(self, image: np.array) -> Any:
+    def __call__(self, image: Image) -> Any:
         pass

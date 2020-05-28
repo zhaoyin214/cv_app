@@ -16,7 +16,7 @@ __author__ = "XiaoY"
 from .data_path import MODEL_DIR
 import os
 
-FACE_70_KP_OPENPOSE = {
+FACE_ALIGN_70_KP_OPENPOSE = {
     "proto": os.path.join(MODEL_DIR, "openpose/face/pose_deploy.prototxt"),
     "weights": os.path.join(MODEL_DIR, "openpose/face/pose_iter_116000.caffemodel"),
     "backend": "Caffe",
@@ -33,7 +33,7 @@ FACE_70_KP_OPENPOSE = {
 # intel facial-landmarks-35-adas-0002
 # blob shape: [1, 70]
 # [x0, y0, x1, y1, ..., x34, y34]
-FACE_ALIGN_INTEL_ADAS_0002_FP32 = {
+FACE_ALIGN_35_KP_INTEL_ADAS_0002_FP32 = {
     "proto": os.path.join(MODEL_DIR, "intel/facial-landmarks-35-adas-0002/FP32/facial-landmarks-35-adas-0002.xml"),
     "weights": os.path.join(MODEL_DIR, "intel/facial-landmarks-35-adas-0002/FP32/facial-landmarks-35-adas-0002.bin"),
     "backend": "DLDT",
@@ -42,4 +42,10 @@ FACE_ALIGN_INTEL_ADAS_0002_FP32 = {
     "swap_rb": False,
     "crop": False,
     "num_kpts": 35,
+}
+
+# dlib shape predictor
+FACE_ALIGN_68_KP_DLIB = {
+    "model": os.path.join(MODEL_DIR, "dlib/shape_predictor_68_face_landmarks.dat"),
+    "num_kpts": 68,
 }
