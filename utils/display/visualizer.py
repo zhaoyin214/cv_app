@@ -12,8 +12,7 @@
 
 __author__ = "XiaoY"
 
-from interface.meta import IConfBoxIterator, IPointIterator
-from interface.meta import Image
+from interface.meta import IConfBoxIterator, IPointIterator, Image
 import cv2
 from typing import Dict, List, Text
 

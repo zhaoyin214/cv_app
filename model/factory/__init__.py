@@ -1,0 +1,1 @@
+from .simple_factory import face_alignment_factory, face_detector_factory

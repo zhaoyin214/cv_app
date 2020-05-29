@@ -12,12 +12,10 @@
 
 __author__ = "XiaoY"
 
-from interface.model.alignment import IBaseAlignment
-from interface.model.detector import IBaseDetector
-from interface.meta.bbox import IBox, IBoxIterator
-from interface.meta.keypoint import IPointIterator
-from meta.bbox import Box
 from interface.app import IBBoxKeypointIterator, IBBoxKeypointApp
+from interface.model import IBaseAlignment, IBaseDetector
+from interface.meta import IBox, IBoxIterator, IPointIterator, Image
+from meta import Box
 from utils.bbox.roi import box_padding, convert_kpts_2_global
 
 import numpy as np
@@ -30,14 +28,14 @@ class BBoxKeypointApp(IBBoxKeypointApp):
         self,
         bbox_net: IBaseDetector,
         keypoint_net: IBaseAlignment,
-        padding: float=1.1
+        padding: float=0.1
     ) -> None:
         self._bbox_net = bbox_net
         self._kpt_net = keypoint_net
         self._padding = padding
 
     def _predict(
-        self, image: np.array
+        self, image: Image
     ) -> IBBoxKeypointIterator:
 
         bboxes = self._bbox_net(image)
@@ -49,7 +47,7 @@ class BBoxKeypointApp(IBBoxKeypointApp):
         return bboxes, kpts_aggregate
 
     def _predict_obj_kps(
-        self, image: np.array, bbox: IBox
+        self, image: Image, bbox: IBox
     ) -> IPointIterator:
 
         border = Box(0, 0, image.shape[1], image.shape[0])
@@ -64,6 +62,13 @@ class BBoxKeypointApp(IBBoxKeypointApp):
         return keypoints
 
     def __call__(
-        self, image: np.array
+        self, image: Image
     ) -> IBBoxKeypointIterator:
         return self._predict(image)
+
+class BBoxKeypointBaggingApp(BBoxKeypointApp):
+
+    def _predict_obj_kps(
+        self, image: Image, bbox: IBox
+    ) -> IPointIterator:
+        pass

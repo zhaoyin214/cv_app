@@ -13,9 +13,8 @@
 __author__ = "XiaoY"
 
 
-from interface.meta import IPointIterator
+from interface.meta import IPointIterator, Image
 from interface.model import IBaseAlignment
-from interface.meta import Image
 from meta import Aggregate, Point
 from .base_net import BaseNetCV
 from typing import Dict
@@ -50,3 +49,9 @@ class AlignmentNetCV(IBaseAlignment, BaseNetCV):
 
     def __call__(self, image: Image) -> IPointIterator:
         return self._call(image)
+
+class AlignmentHeatMapNetCV(AlignmentNetCV):
+
+    def __init__(self, config: Dict) -> None:
+        super(AlignmentHeatMapNetCV, self).__init__()
+        self._heat_map_indices = config.get("heat_map_indices")

@@ -12,9 +12,8 @@
 
 __author__ = "XiaoY"
 
-from interface.meta import IConfBoxIterator
+from interface.meta import IConfBoxIterator, Image, Blob
 from interface.model import IBaseDetector
-from interface.meta import Image, Blob
 from meta import Aggregate, ConfBox
 from .base_net import ClassNetCV
 from typing import Dict

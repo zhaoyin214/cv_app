@@ -13,13 +13,13 @@
 __author__ = "XiaoY"
 
 
-from interface.meta import IPointIterator
+from interface.meta import IPointIterator, Image
 from interface.model import IBaseModel
-from interface.meta import Image
+from meta import Aggregate, Point
 import dlib
 from typing import Dict
 
-class RegNetDlib(IBaseModel):
+class DlibShapePredictor(IBaseModel):
     """
     the adaptor of dlib.shape_predictor()
     """
@@ -33,8 +33,20 @@ class RegNetDlib(IBaseModel):
             raise e
 
     def _predict(self, image: Image) -> IPointIterator:
-        landmarks = self._predictor(image)
-        pass
+        rect = dlib.rectangle(
+            left=0, top=0, right=image.shape[1], bottom=image.shape[0]
+        )
+
+        keypoints = Aggregate()
+        landmarks = self._predictor(image, rect)
+        for idx in range(landmarks.num_parts):
+            pt = Point(
+                x=landmarks.part(idx).x,
+                y=landmarks.part(idx).y
+            )
+            keypoints.append(pt)
+
+        return keypoints
 
     def __call__(self, image: Image) -> IPointIterator:
-        pass
+        return self._predict(image)

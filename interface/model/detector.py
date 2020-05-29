@@ -13,8 +13,7 @@
 
 __author__ = "XiaoY"
 
-from interface.meta import IConfBoxIterator
-from interface.meta import Image
+from interface.meta import IConfBoxIterator, Image
 from .base import IBaseModel
 import numpy as np
 from abc import abstractmethod

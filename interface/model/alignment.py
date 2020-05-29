@@ -14,8 +14,7 @@
 __author__ = "XiaoY"
 
 
-from interface.meta import IPointIterator
-from interface.meta import Image
+from interface.meta import IPointIterator, Image
 from .base import IBaseModel
 from abc import abstractmethod
 
