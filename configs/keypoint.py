@@ -26,8 +26,9 @@ FACE_ALIGN_70_KP_OPENPOSE = {
     "crop": False,
     "mean": (0, 0, 0),
     "scale_factor": 1 / 255,
-    "kp_map_indices": list(range(70)),
-    "threshold": 0.2
+    "heat_map_indices": list(range(70)),
+    "threshold": 0.2,
+    "decoding_mode": "hard", # soft or hard
 }
 
 # intel facial-landmarks-35-adas-0002

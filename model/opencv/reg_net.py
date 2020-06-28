@@ -16,6 +16,7 @@ __author__ = "XiaoY"
 from interface.meta import IPointIterator, Image
 from interface.model import IBaseAlignment
 from meta import Aggregate, Point
+from utils.keypoint import HeatMapDecoder
 from .base_net import BaseNetCV
 from typing import Dict
 
@@ -50,8 +51,27 @@ class AlignmentNetCV(IBaseAlignment, BaseNetCV):
     def __call__(self, image: Image) -> IPointIterator:
         return self._call(image)
 
-class AlignmentHeatMapNetCV(AlignmentNetCV):
+class AlignmentHeatMapNetCV(IBaseAlignment, BaseNetCV):
+    """
+    the concrete alignment class, which output a set of heat maps given an image
 
+    return
+
+    [point, ...]
+    """
     def __init__(self, config: Dict) -> None:
-        super(AlignmentHeatMapNetCV, self).__init__()
+        super(AlignmentHeatMapNetCV, self).__init__(config)
         self._heat_map_indices = config.get("heat_map_indices")
+        self._decoder = HeatMapDecoder(
+            threshold=config.get("threshold"),
+            mode=config.get("decoding_mode")
+        )
+
+    def _post_proc(
+        self, image: Image, pred: IPointIterator
+    ) -> IPointIterator:
+        heat_map = pred[:, self._heat_map_indices, :, :]
+        return self._decoder(heat_map, image)
+
+    def __call__(self, image: Image) -> IPointIterator:
+        return self._call(image)

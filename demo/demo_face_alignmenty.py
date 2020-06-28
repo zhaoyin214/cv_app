@@ -1,4 +1,4 @@
-from model.factory import face_detector_factory, face_alignment_factory
+from factory import face_detector_factory, face_alignment_factory
 from app import BBoxKeypointApp
 from utils.display.visualizer import show_multi_obj_alignment
 import cv2
@@ -6,8 +6,6 @@ import os
 
 
 if __name__ == "__main__":
-
-
 
     output_path = "./output/face_alignment_out.jpg"
     image = cv2.imread(filename="./img/hoffman.jpg")
@@ -19,6 +17,7 @@ if __name__ == "__main__":
     # face alignment
     face_aligner_key = "FACE_ALIGN_35_KP_INTEL_ADAS_0002_FP32"
     # face_aligner_key = "FACE_ALIGN_68_KP_DLIB"
+    # face_aligner_key = "FACE_ALIGN_70_KP_OPENPOSE"
 
     face_detector = face_detector_factory[face_detector_key]
     face_aligner = face_alignment_factory[face_aligner_key]

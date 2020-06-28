@@ -76,6 +76,9 @@ class KeyPointPlotter(Plotter):
         image = image.copy()
         for pt in keypoints:
 
+            if pt is None:
+                continue
+
             cv2.circle(
                 img=image,
                 center=(int(pt.x), int(pt.y)),

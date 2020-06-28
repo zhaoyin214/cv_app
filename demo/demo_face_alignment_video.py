@@ -13,7 +13,7 @@
 __author__ = "XiaoY"
 
 
-from model.factory import face_detector_factory, face_alignment_factory
+from factory import face_detector_factory, face_alignment_factory
 from app import BBoxKeypointApp
 from utils.display.visualizer import _plot_multi_obj_alignment
 from utils.display.video import VideoReader, VideoWriter
@@ -29,8 +29,9 @@ if __name__ == "__main__":
     face_detector_key = "FACE_DET_INTEL_RETAIL_0005_FP32"
 
     # face alignment
-    # face_aligner_key = "FACE_ALIGN_35_KP_INTEL_ADAS_0002_FP32"
-    face_aligner_key = "FACE_ALIGN_68_KP_DLIB"
+    face_aligner_key = "FACE_ALIGN_35_KP_INTEL_ADAS_0002_FP32"
+    # face_aligner_key = "FACE_ALIGN_68_KP_DLIB"
+    # face_aligner_key = "FACE_ALIGN_70_KP_OPENPOSE"
 
     video_reader = VideoReader(os.path.join(VIDEO_DIR, "The_Marvel_Bunch.mp4"))
     video_writer = VideoWriter(

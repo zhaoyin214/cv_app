@@ -17,9 +17,9 @@ import numpy as np
 from abc import ABCMeta, abstractproperty
 from typing import List
 
-Image = np.array
+Image = np.ndarray
 
-Blob = np.array
+Blob = np.ndarray
 
 class ImageSize(metaclass=ABCMeta):
 
