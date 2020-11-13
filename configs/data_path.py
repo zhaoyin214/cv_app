@@ -12,7 +12,6 @@
 
 __author__ = "XiaoY"
 
-
 MODEL_DIR = "./data/models"
 IMG_DIR = "./img"
 VIDEO_DIR = "./video"

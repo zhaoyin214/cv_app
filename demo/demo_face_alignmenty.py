@@ -15,9 +15,10 @@ if __name__ == "__main__":
     face_detector_key = "FACE_DET_INTEL_RETAIL_0005_FP32"
 
     # face alignment
-    face_aligner_key = "FACE_ALIGN_35_KP_INTEL_ADAS_0002_FP32"
+    # face_aligner_key = "FACE_ALIGN_35_KP_INTEL_ADAS_0002_FP32"
     # face_aligner_key = "FACE_ALIGN_68_KP_DLIB"
     # face_aligner_key = "FACE_ALIGN_70_KP_OPENPOSE"
+    face_aligner_key = "FACE_ALIGN_68_KP_FAN"
 
     face_detector = face_detector_factory[face_detector_key]
     face_aligner = face_alignment_factory[face_aligner_key]

@@ -16,6 +16,36 @@ __author__ = "XiaoY"
 from .data_path import MODEL_DIR
 import os
 
+FACE_ALIGN_68_KP = {
+    "face": {
+        "mouth": [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67],
+        "right_brow": [17, 18, 19, 20, 21],
+        "left_brow": [22, 23, 24, 25, 26],
+        "right_eye": [36, 37, 38, 39, 40, 41],
+        "left_eye": [42, 43, 44, 45, 46, 47],
+        "nose": [27, 28, 29, 30, 31, 32, 33, 34, 35]
+    },
+    "jaw": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+}
+
+# fan: face alignment net
+FACE_ALIGN_68_KP_FAN = {
+    "proto": os.path.join(MODEL_DIR, "fan/fan.xml"),
+    "weights": os.path.join(MODEL_DIR, "fan/fan.bin"),
+    "backend": "DLDT",
+    "input_height": 256,
+    "input_width": 256,
+    "swap_rb": True,
+    "crop": False,
+    "mean": (0, 0, 0),
+    "scale_factor": 1 / 255,
+    "num_kpts": 68,
+    "heat_map_indices": list(range(68)),
+    "threshold": 0.2,
+    # "decoding_mode": "hard", # soft or hard
+    "decoding_mode": "soft", # soft or hard
+}
+
 FACE_ALIGN_70_KP_OPENPOSE = {
     "proto": os.path.join(MODEL_DIR, "openpose/face/pose_deploy.prototxt"),
     "weights": os.path.join(MODEL_DIR, "openpose/face/pose_iter_116000.caffemodel"),

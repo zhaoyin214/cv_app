@@ -21,9 +21,12 @@ import cv2
 
 if __name__ == "__main__":
     output_path = "./output/face_det_out.jpg"
-    # image = cv2.imread(filename="./img/190.jpg")
+    image = cv2.imread(filename="./img/test2.jpg")
+    FACE_DET_INTEL_RETAIL_0005_FP32["input_height"] = int(1080 * 1.5)
+    FACE_DET_INTEL_RETAIL_0005_FP32["input_width"] = int(1920 * 1.5)
+    FACE_DET_INTEL_RETAIL_0005_FP32["threshold"] = 0.88
     # image = cv2.imread(filename="./img/221.jpg")
-    image = cv2.imread(filename="./img/13f44c7a-fde1-4a73-9a73-aba5f374f7f3.jpg")
+    # image = cv2.imread(filename="./img/13f44c7a-fde1-4a73-9a73-aba5f374f7f3.jpg")
 
     face_detector = DetectNetCV(config=FACE_DET_INTEL_RETAIL_0005_FP32)
 

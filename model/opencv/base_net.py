@@ -59,9 +59,7 @@ class BaseNetCV(IBaseModel):
     def _input_blob(self, image: Image) -> Blob:
         if self._is_gray:
             image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
         image_height, image_width = image.shape[0 : 2]
-
         if self._input_height and self._input_width:
             input_width = self._input_width
             input_height = self._input_height
@@ -78,14 +76,12 @@ class BaseNetCV(IBaseModel):
         else:
             input_height = image_height
             input_width = image_width
-
         # input image dimensions for the network
         blob = cv2.dnn.blobFromImage(
             image=image, scalefactor=self._scale_factor,
             size=(input_width, input_height),
             mean=self._mean, swapRB=self._swap_rb, crop=self._crop
         )
-
         return blob
 
     def _pre_proc(self, image: Image) -> Image:

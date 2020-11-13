@@ -37,28 +37,22 @@ class BBoxKeypointApp(IBBoxKeypointApp):
     def _predict(
         self, image: Image
     ) -> IBBoxKeypointIterator:
-
         bboxes = self._bbox_net(image)
-
         kpts_aggregate = []
         for bbox in bboxes:
             kpts_aggregate.append(self._predict_obj_kps(image, bbox))
-
         return bboxes, kpts_aggregate
 
     def _predict_obj_kps(
         self, image: Image, bbox: IBox
     ) -> IPointIterator:
-
         border = Box(0, 0, image.shape[1], image.shape[0])
         roi = box_padding(bbox, border, self._padding)
         image_crop = image[
             roi.ymin : roi.ymax, roi.xmin : roi.xmax, :
         ]
-
         keypoints = self._kpt_net(image_crop)
         keypoints = convert_kpts_2_global(keypoints, roi)
-
         return keypoints
 
     def __call__(

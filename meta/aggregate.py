@@ -37,7 +37,6 @@ class Aggregate(IAggregate):
         return self
 
     def __next__(self):
-
         self._cnt += 1
         if self._cnt < len(self._aggregate):
             return self._aggregate[self._cnt]
